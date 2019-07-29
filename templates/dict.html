@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+</html>
+<head>
+  <meta charset="utf-8">
+  <title>The Tech Dictionary</title>
+  <link rel="stylesheet" href="static/style.css">
+</head>
+
+<body>
+  <div id="header">
+    <span id="title">Tech Terms Dictionary</span>
+    <span id="beta">beta</span>
+    <div class="row">
+      <div id="header-icons">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdvZQytWRKfwHxi5RN018iTdn24EcELgFD_e0olWUbW5jEHpg/viewform?usp=sf_link" target="_blank">
+          <div class="circle-button">
+            <img src="static/plus_2.svg" id="plus-icon"/>
+          </div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+  <div id="content">
+
+    {% for e in entries %}
+    <div class="entry">
+
+      {% for d in e.definitions %}
+
+      <div class="definition">
+
+        <div>
+          <span class="definition-number">
+        {% if loop.index0 == 0 %}
+            TOP DEFINITION
+        {% else %}
+         {{ loop.index }}
+        {% endif %}
+          </span>
+	</div>
+
+        <h2 class="entry-title"> {{ e.get("title") }} </h2>
+
+        <div class="body">
+          {{ d.get("body") | markdown }}
+        </div>
+
+        <div class="tags">
+          {% for t in d.tags %}
+          <span class="tag"> #{{ t }} </span>
+          {% endfor %}
+        </div>
+
+        <div class="author">
+          by {{ d.get("author") }} {{ d.publish_date | datetime }}
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+    {% endfor %}
+  </div>
+
+  <div id="footer">
+  </div>
+</body>
+</html>
