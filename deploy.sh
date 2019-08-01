@@ -1,4 +1,6 @@
 
+echo 'freezing...'
+python freeze.py
 
 echo 'deploying...'
 cd build
