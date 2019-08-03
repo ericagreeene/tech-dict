@@ -20,7 +20,8 @@ def getEntries():
         exit(1)
 
     client = Client(SPACE_ID, DELIVERY_ACCESS_TOKEN)
-    entries = client.entries({'content_type': 'entry'})
+
+    entries = client.entries({'content_type': 'entry', 'include': 2})
 
     return [
             {
@@ -33,7 +34,7 @@ def getEntries():
 
                         # the author is a link so we need to make another
                         # api call to resolve it
-                        'author': d.author.resolve(client).name,
+                        'author': d.author.name,
                         'publish_date': d.fields().get('publish_date'),
                     } for d in e.fields().get('definition', [])
                 ]

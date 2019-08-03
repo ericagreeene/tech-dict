@@ -15,7 +15,7 @@ cp env_example.sh env.sh
 # edit env.sh to have your API token
 
 # set your environment variables
-./env.sh
+source env.sh
 ```
 
 4. Install requiremnts
