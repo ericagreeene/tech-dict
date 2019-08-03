@@ -26,10 +26,11 @@ def getEntries():
     return [
             {
                 'title': e.fields().get('title').lower(),
-                'entry_id': e.id,
+                'id': e.id,
                 'definitions': [
                     {
                         'body': d.fields().get('body'),
+                        'id': d.id,
                         'tags': [t.lower() for t in d.fields().get('tags', [])],
 
                         # the author is a link so we need to make another
