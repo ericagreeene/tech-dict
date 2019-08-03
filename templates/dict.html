@@ -12,8 +12,10 @@
 
 <body>
   <div id="header">
-    <span id="title">The Tech Buzzwords Dictionary</span>
-    <span id="beta">beta</span>
+    <a href="/">
+      <span id="title">The Tech Buzzwords Dictionary</span>
+      <span id="beta">beta</span>
+    </a>
     <div class="row">
       <div id="header-icons">
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSdvZQytWRKfwHxi5RN018iTdn24EcELgFD_e0olWUbW5jEHpg/viewform?usp=sf_link" target="_blank">
@@ -45,8 +47,8 @@
           </span>
 	</div>
 
-        <a href="#def-{{ d.get('id')}}">
-          <h2 class="entry-title" id="def-{{ d.get('id')}}">
+        <a href="/entry-{{ e.get('id')}}">
+          <h2 class="entry-title">
             {{ e.get("title") }}
           </h2>
         </a>

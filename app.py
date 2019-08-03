@@ -1,5 +1,5 @@
 import os
-from contentful import Client
+import contentful
 from flask import Flask, render_template
 from flaskext.markdown import Markdown
 from jinja2 import Environment
@@ -14,19 +14,18 @@ DELIVERY_ACCESS_TOKEN = os.environ.get('DELIVERY_ACCESS_TOKEN')
 app.jinja_env.filters['datetime'] = lambda x: x.strftime('%B %d %Y')
 
 
-def getEntries():
+def _get_client():
     if DELIVERY_ACCESS_TOKEN is None:
         print('Must set DELIVERY_ACCESS_TOKEN env variable')
         exit(1)
 
-    client = Client(SPACE_ID, DELIVERY_ACCESS_TOKEN)
+    return contentful.Client(SPACE_ID, DELIVERY_ACCESS_TOKEN)
 
-    entries = client.entries({
-        'content_type': 'entry',
-        'include': 2,
-        'order': 'fields.title',
-    })
-
+def _entries_to_dict(entries):
+    """
+    Takes an array of Contentful entries and returns dict of data required
+    to render templates.
+    """
     return [
             {
                 'title': e.fields().get('title').lower(),
@@ -45,13 +44,34 @@ def getEntries():
                 ]
             } for e in entries]
 
+def get_entries():
+    client = _get_client()
+
+    entries = client.entries({
+        'content_type': 'entry',
+        'include': 2,
+        'order': 'fields.title',
+    })
+
+    return _entries_to_dict(entries)
+
+def get_entry(entry_id):
+    client = _get_client()
+    entry = client.entry(entry_id, query={'include': 2})
+    return _entries_to_dict([entry])
 
 @app.route("/")
 def home():
-    entries = getEntries()
+    entries = get_entries()
 
     return render_template("dict.html", entries=entries)
 
-if __name__ == "__main__":
+@app.route("/entry-<entry_id>")
+def entry(entry_id):
+    entry = get_entry(entry_id)
 
+    return render_template("dict.html", entries=entry)
+
+
+if __name__ == "__main__":
     app.run()
