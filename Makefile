@@ -1,5 +1,5 @@
 run:
-	python app.py
+	python -m flask run
 
 test:
 	python -m nose --verbosity=3 -x --with-xunit --rednose
