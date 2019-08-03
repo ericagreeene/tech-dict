@@ -21,7 +21,11 @@ def getEntries():
 
     client = Client(SPACE_ID, DELIVERY_ACCESS_TOKEN)
 
-    entries = client.entries({'content_type': 'entry', 'include': 2})
+    entries = client.entries({
+        'content_type': 'entry',
+        'include': 2,
+        'order': 'fields.title',
+    })
 
     return [
             {
