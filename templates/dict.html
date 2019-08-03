@@ -47,7 +47,7 @@
           </span>
 	</div>
 
-        <a href="/entry-{{ e.get('id')}}">
+        <a href="{{url_for('entry', entry_id=e.get('id'))}}"">
           <h2 class="entry-title">
             {{ e.get("title") }}
           </h2>

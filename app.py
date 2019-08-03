@@ -66,7 +66,7 @@ def home():
 
     return render_template("dict.html", entries=entries)
 
-@app.route("/entry-<entry_id>")
+@app.route("/entry-<entry_id>.html")
 def entry(entry_id):
     entry = get_entry(entry_id)
 
