@@ -2,7 +2,7 @@
 
 </html>
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8"/>
   <title>The Tech Buzzwords Dictionary</title>
   <link rel="stylesheet" href="static/style.css">
   <script type=text/javascript
@@ -12,21 +12,20 @@
 
 <body>
   <div id="header">
-    <a href="/">
-      <span id="title">The Tech Buzzwords Dictionary</span>
-      <span id="beta">beta</span>
-    </a>
-    <div class="row">
-      <div id="header-icons">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdvZQytWRKfwHxi5RN018iTdn24EcELgFD_e0olWUbW5jEHpg/viewform?usp=sf_link" target="_blank">
-          <div class="circle-button">
-            <img src="static/plus_2.svg" id="plus-icon"/>
-          </div>
+    <div id="header-left">
+      <a href="/">
+        <h1 id="title">The Tech Buzzwords Dictionary</h1>
+        <span id="beta">beta</span>
+      </a>
+    </div>
+
+    <div id="header-right">
+      <a id="contribute-link"
+         href="https://docs.google.com/forms/d/e/1FAIpQLSdvZQytWRKfwHxi5RN018iTdn24EcELgFD_e0olWUbW5jEHpg/viewform?usp=sf_link" target="_blank">
+        <div>Contribute</div>
       </a>
     </div>
   </div>
-
-</div>
 
   <div id="content">
 
@@ -37,34 +36,36 @@
 
       <div class="definition">
 
-        <div>
+        <div class="def-left-col">
           <span class="definition-number">
-        {% if loop.index0 == 0 %}
+            {% if loop.index0 == 0 %}
             TOP DEFINITION
-        {% else %}
-         {{ loop.index }}
-        {% endif %}
+            {% else %}
+            {{ loop.index }}
+            {% endif %}
           </span>
 	</div>
 
-        <a href="{{url_for('entry', entry_id=e.get('id'))}}"">
-          <h2 class="entry-title">
-            {{ e.get("title") }}
-          </h2>
-        </a>
+        <div class="def-right-col">
+          <a href="{{url_for('entry', entry_id=e.get('id'))}}">
+            <h2 class="entry-title">
+              {{ e.get("title") }}
+            </h2>
+          </a>
 
-        <div class="body">
-          {{ d.get("body") | markdown }}
-        </div>
+          <div class="body">
+            {{ d.get("body") | markdown }}
+          </div>
 
-        <div class="tags">
-          {% for t in d.tags %}
-          <span class="tag"> #{{ t }} </span>
-          {% endfor %}
-        </div>
+          <div class="tags">
+            {% for t in d.tags %}
+            <span class="tag"> #{{ t }} </span>
+            {% endfor %}
+          </div>
 
-        <div class="author">
-          by {{ d.get("author") }} {{ d.publish_date | datetime }}
+          <div class="author">
+            by {{ d.get("author") }} {{ d.publish_date | datetime }}
+          </div>
         </div>
       </div>
       {% endfor %}

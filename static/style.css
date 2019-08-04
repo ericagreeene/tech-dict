@@ -5,6 +5,33 @@ body {
 a {
     text-decoration: inherit;
     color: inherit;
+    margin: 0px;
+}
+
+h1 {
+    margin: 0px;
+    font-size: 20px;
+}
+
+h2 {
+    margin: 0px;
+}
+
+#title {
+    float: left;
+    margin-right: 10px;
+}
+
+#header-left {
+    flex: 1;
+}
+
+#header-right {
+    display: flex;
+}
+
+#contribute-link {
+    align-self: flex-end;
 }
 
 #header {
@@ -12,16 +39,16 @@ a {
     background: #1D2438;
     color: white;
     font-family: monospace;
-    font-size: 30px;
     padding: 10px;
+    display: flex;
+}
+
+.icon {
+    float: right;
 }
 
 #content {
     background: lightgray;
-}
-
-#title {
-    vertical-align: middle;
 }
 
 #beta {
@@ -53,15 +80,11 @@ a {
     font-size: 35px;
     color: #0F4FE2;
     font-family: serif;
-    margin: 10px 0;
+    margin-top: 10px;
 }
 
 .row {
     width: 100%;
-}
-
-#header-icons {
-    float: right;
 }
 
 #plus-icon {
