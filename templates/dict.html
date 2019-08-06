@@ -1,80 +1,69 @@
 <!DOCTYPE html>
 
-</html>
-<head>
-  <meta charset="utf-8"/>
-  <title>The Tech Buzzwords Dictionary</title>
-  <link rel="stylesheet" href="static/style.css">
-  <script type=text/javascript
-          src="{{ url_for('static', filename='js/index.js') }}">
-  </script>
-</head>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, user-scalable=no" />
+    <title>The Tech Buzzwords</title>
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"/>
 
-<body>
-  <div id="header">
-    <div id="header-left">
-      <a href="/">
-        <h1 id="title">The Tech Buzzwords Dictionary</h1>
+  </head>
+
+  <body>
+    <div class="ui inverted menu">
+      <a href="/" class="header item">
+        <h1 id="title">The Tech Buzzwords</h1>
         <span id="beta">beta</span>
       </a>
-    </div>
 
-    <div id="header-right">
-      <a id="contribute-link"
-         href="https://docs.google.com/forms/d/e/1FAIpQLSdvZQytWRKfwHxi5RN018iTdn24EcELgFD_e0olWUbW5jEHpg/viewform?usp=sf_link" target="_blank">
-        <div>Contribute</div>
-      </a>
-    </div>
-  </div>
-
-  <div id="content">
-
-    {% for e in entries %}
-    <div class="entry" class="test">
-
-      {% for d in e.definitions %}
-
-      <div class="definition">
-
-        <div class="def-left-col">
-          <span class="definition-number">
-            {% if loop.index0 == 0 %}
-            TOP DEFINITION
-            {% else %}
-            {{ loop.index }}
-            {% endif %}
-          </span>
-	</div>
-
-        <div class="def-right-col">
-          <a href="{{url_for('entry', entry_id=e.get('id'))}}">
-            <h2 class="entry-title">
-              {{ e.get("title") }}
-            </h2>
-          </a>
-
-          <div class="body">
-            {{ d.get("body") | markdown }}
-          </div>
-
-          <div class="tags">
-            {% for t in d.tags %}
-            <span class="tag"> #{{ t }} </span>
-            {% endfor %}
-          </div>
-
-          <div class="author">
-            by {{ d.get("author") }} {{ d.publish_date | datetime }}
-          </div>
-        </div>
+      <div class="right menu">
+        <a class="item"
+           id="add-term"
+           href="https://docs.google.com/forms/d/e/1FAIpQLSdvZQytWRKfwHxi5RN018iTdn24EcELgFD_e0olWUbW5jEHpg/viewform?usp=sf_link" target="_blank">
+          +
+        </a>
       </div>
-      {% endfor %}
-
     </div>
-    {% endfor %}
-  </div>
 
-  <div id="footer">
-  </div>
-</body>
+    <div class="ui container">
+      <div class="ui relaxed divided items">
+
+        {% for e in entries %}
+        {% for d in e.definitions %}
+
+        <div class="item" id="entry-{{e.get('id')}}">
+
+          <div class="content">
+          {% if loop.index0 == 0 %}
+
+              <span class="definition-number"> TOP DEFINITION </span>
+              {% else %}
+              <span class="definition-number">{{ loop.index }} </span>
+          {% endif %}
+
+            <div>
+              <a href="{{url_for('entry', entry_id=e.get('id'))}}">
+                <h2 class="entry-title"> {{ e.get("title") }} </h2>
+              </a>
+            </div>
+
+            <div class="body">{{ d.get("body") | markdown }}</div>
+            <div class="tags">
+              {% for t in d.tags %} <span class="tag"> #{{ t }} </span> {% endfor %}
+            </div>
+            <div>
+              by {{ d.get("author") }} {{ d.publish_date | datetime }}
+            </div>
+
+          </div> <!-- close content -->
+        </div> <!-- close item -->
+        {% endfor %}
+        {% endfor %}
+
+      </div> <!-- close ui relaxed items -->
+    </div> <!-- close ui container -->
+
+    <div class="ui inverted vertical footer segment"> </div>
+  </body>
 </html>
