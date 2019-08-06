@@ -32,7 +32,7 @@
         {% for e in entries %}
         {% for d in e.definitions %}
 
-        <div class="item" id="entry-{{e.get('id')}}">
+        <div class="item" id="entry-{{d.get('id')}}">
 
           <div class="content">
           {% if loop.index0 == 0 %}
