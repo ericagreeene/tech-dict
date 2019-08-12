@@ -1,6 +1,16 @@
+.content {
+    margin: 10px 0;
+}
+
 .body {
-     font-size: 18px;
+    overflow: hidden;
+    margin: 10px 0;
  }
+
+#inner-container {
+    min-height: 1000px;
+    font-size: 16px;
+}
 
 #title {
     float: left;
@@ -20,7 +30,7 @@
 
 .definition-number {
     background: #EFFF37;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
     padding: 3px;
 }
@@ -29,7 +39,7 @@
     font-size: 35px;
     color: #0F4FE2;
     font-family: serif;
-    margin-top: 10px;
+    margin: 10px 0;
 }
 
 .tag {
@@ -47,4 +57,8 @@
 
 img {
     height: 250px;
+}
+
+.menu .item {
+    font-size: 1em;
 }
