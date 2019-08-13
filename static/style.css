@@ -14,12 +14,13 @@
 
 #title {
     float: left;
-    margin-right: 10px;
+    margin-right: 4px;
+    font-family: 'Fjord One', serif;
+    font-size: 24px;
 }
 
-#add-term {
-    font-size: 20px;
-    font-weight: 600;
+#menu-container{
+    padding: 10px 0;
 }
 
 #beta {
