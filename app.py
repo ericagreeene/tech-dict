@@ -11,6 +11,10 @@ Markdown(app)
 SPACE_ID = '0iipfzf6z60u'
 DELIVERY_ACCESS_TOKEN = os.environ.get('DELIVERY_ACCESS_TOKEN')
 
+# We set the Contentful client timeout high because we only have to
+# to fetch when we freeze, not per request
+CLIENT_TIMEOUT_SECONDS=60
+
 app.jinja_env.filters['datetime'] = lambda x: x.strftime('%B %d %Y')
 
 
@@ -19,7 +23,11 @@ def _get_client():
         print('Must set DELIVERY_ACCESS_TOKEN env variable')
         exit(1)
 
-    return contentful.Client(SPACE_ID, DELIVERY_ACCESS_TOKEN)
+    return contentful.Client(
+        space_id=SPACE_ID,
+        access_token=DELIVERY_ACCESS_TOKEN,
+        timeout_s=CLIENT_TIMEOUT_SECONDS,
+    )
 
 def _entries_to_dict(entries):
     """
