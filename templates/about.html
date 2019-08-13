@@ -3,6 +3,9 @@
 {% block content %}
 {{ super() }}
 
+<div class="ui text container">
+<h2><span id="about-title">About</span></h2>
+  {{ text | markdown }}
+</div>
 
-{{ text }}
 {% endblock %}

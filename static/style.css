@@ -10,27 +10,29 @@
 #content {
     min-height: 700px;
     font-size: 16px;
+    margin-top: 20px;
 }
 
 #title {
     float: left;
     margin-right: 4px;
+    font-weight: 600;
     font-family: 'Fjord One', serif;
-    font-size: 24px;
+    font-size: 1.5em;
 }
 
 #menu-container{
-    padding: 10px 0;
+    padding: 15px 0;
 }
 
 #beta {
     font-size: 16px;
-    color: yellow;
+    color: grey;
     vertical-align: super;
 }
 
 .definition-number {
-    background: #EFFF37;
+    background: yellow;
     font-size: 14px;
     font-weight: 600;
     padding: 3px;
@@ -62,4 +64,18 @@ img {
 
 .menu .item {
     font-size: 1em;
+}
+
+#about-title {
+    padding: 5px;
+    background: yellow;
+}
+
+#footer {
+    height: 50px;
+    margin-top: 20px;
+}
+
+#entries-divider {
+    margin-left: 8px;
 }

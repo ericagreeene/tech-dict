@@ -44,7 +44,8 @@ def _entries_to_dict(entries):
                 ]
             } for e in entries]
 
-def get_entries():
+def _get_entries():
+    """Fetch all entries"""
     client = _get_client()
 
     entries = client.entries({
@@ -55,26 +56,42 @@ def get_entries():
 
     return _entries_to_dict(entries)
 
-def get_entry(entry_id):
+def _get_entry(entry_id):
+    """Fetch single entry by ID"""
     client = _get_client()
     entry = client.entry(entry_id, query={'include': 2})
     return _entries_to_dict([entry])
 
+def _get_about():
+    """Fetch about page"""
+    client = _get_client()
+    abouts =  client.entries({
+        'content_type': 'aboutPage',
+        'limit': 1,
+        })
+
+    # HACK -- we assume there is only one About Page. We blindly take
+    # the first one in the list.
+    if len(abouts) == 0:
+        return ""
+
+    return abouts[0].text
+
 @app.route("/")
 def home():
-    entries = get_entries()
+    entries = _get_entries()
 
     return render_template("dict.html", entries=entries)
 
 @app.route("/about.html")
 def about():
-    text = "This is an about page"
+    text = _get_about()
 
     return render_template("about.html", text=text)
 
 @app.route("/entry-<entry_id>.html")
 def entry(entry_id):
-    entry = get_entry(entry_id)
+    entry = _get_entry(entry_id)
 
     return render_template("dict.html", entries=entry)
 

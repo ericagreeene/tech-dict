@@ -22,59 +22,44 @@
 
   <body>
 
-    <div class="ui inverted menu" id="menu-container">
-      <div class="item">
-        <a href="/" class="">
+    <div class="ui menu fluid borderless" id="menu-container">
+
+
+      <div class="left menu">
+        <a class="ui dropdown item">
+          <i class="icon bars"></i>
+          <div class="ui vertical menu">
+            <div class="item" id="about-menu">About</div>
+            <div class="item">Contribute</div>
+            <div class="divider"></div>
+            <b id="entries-divider">Entries</b>
+            <div class="item">Rhetorical Phrases</div>
+            <div class="item">Technical Glossary</div>
+            <div class="item">Lifestyle Terms</div>
+          </div>
+        </a>
+
+        <a href="/" class="item">
           <span id="title">Tech Rhetoric</span>
           <span id="beta">beta</span>
         </a>
+
       </div>
 
+      <div class="right menu">
 
-      <a class="browse item" >Browse</a>
-      <!-- start browse -->
-      <div class="ui flowing popup">
-        <div class="ui three column divided grid">
-          <div class="column">
-            <h4 class="ui header">Rhetorical Phrases</h4>
-            <div class="ui link list">
-              <a class="item">moderating content would make us too powerful</a>
-              <a class="item">you own your data</a>
-              <a class="item">...but we're connecting people</a>
-              <a class="item">...but it's anonymized</a>
-            </div>
-          </div>
-          <div class="column">
-            <h4 class="ui header">Tech Terms</h4>
-            <div class="ui link list">
-              <a class="item">AI</a>
-              <a class="item">agile</a>
-              <a class="item">API</a>
-              <a class="item">gig economy</a>
-              <a class="item">privacy policy</a>
-              <a class="item">SaaS</a>
-            </div>
-          </div>
-          <div class="column">
-            <h4 class="ui header">Other</h4>
-            <div class="ui link list">
-              <a class="item">unicorn</a>
-              <a class="item">life hack</a>
-              <a class="item">pivot</a>
-            </div>
+        <div class="item">
+          <div class="ui transparent icon input">
+            <input type="text" placeholder="Search...">
+            <i class="search link icon"></i>
           </div>
         </div>
-      </div>
-      <!-- end browse -->
 
-      <div class="ui right menu inverted">
-        <a class="item" href="{{url_for('about')}}">
-          About
-        </a>
+
       </div>
     </div>
 
     <div id="content">{% block content %}{% endblock %}</div>
-    <div class="ui inverted vertical footer segment"> </div>
+    <div class="ui inverted vertical footer segment" id="footer"> </div>
   </body>
 </html>

@@ -4,9 +4,10 @@
     {{ super() }}
 
 <div class="ui text container">
-  <div class="ui relaxed divided items" id="inner-container">
+  <div class="ui relaxed center aligned divided items" id="inner-container">
 
     {% for e in entries %}
+    <div class="entry-block">
     {% for d in e.definitions %}
 
     <div class="item" id="entry-{{d.get('id')}}">
@@ -36,6 +37,10 @@
       </div> <!-- close content -->
     </div> <!-- close item -->
     {% endfor %}
+    </div>
+
+    <div class="ui divider"></div>
+
     {% endfor %}
 
   </div> <!-- close ui relaxed items -->
