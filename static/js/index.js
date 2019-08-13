@@ -8,6 +8,11 @@ function init() {
         window.location.href = '/about.html';
         return false;
     });
+
+    $('#contribute-menu').click(function() {
+        window.location.href = '/contribute.html';
+        return false;
+    });
 }
 
 

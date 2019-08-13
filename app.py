@@ -71,7 +71,7 @@ def _get_entry(entry_id):
     return _entries_to_dict([entry])
 
 def _get_about():
-    """Fetch about page"""
+    """Fetch About Page"""
     client = _get_client()
     abouts =  client.entries({
         'content_type': 'aboutPage',
@@ -85,6 +85,20 @@ def _get_about():
 
     return abouts[0].text
 
+def _get_contribute():
+    """Fetch Contribute Page"""
+    client = _get_client()
+    pages =  client.entries({
+        'content_type': 'contributePage',
+        'limit': 1,
+        })
+
+    # HACK -- we assume there is only one
+    if len(pages) == 0:
+        return ""
+
+    return pages[0].text
+
 @app.route("/")
 def home():
     entries = _get_entries()
@@ -96,6 +110,12 @@ def about():
     text = _get_about()
 
     return render_template("about.html", text=text)
+
+@app.route("/contribute.html")
+def contribute():
+    text = _get_contribute()
+
+    return render_template("contribute.html", text=text)
 
 @app.route("/entry-<entry_id>.html")
 def entry(entry_id):

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+{{ super() }}
+
+<div class="ui text container">
+<h2><span id="about-title">Contribute</span></h2>
+  {{ text | markdown }}
+</div>
+
+{% endblock %}
