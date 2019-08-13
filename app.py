@@ -66,7 +66,7 @@ def home():
 
     return render_template("dict.html", entries=entries)
 
-@app.route("/about")
+@app.route("/about.html")
 def about():
     text = "This is an about page"
 
