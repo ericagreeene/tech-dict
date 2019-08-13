@@ -1,114 +1,43 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Tech Rhetoric</title>
-    <link href="https://fonts.googleapis.com/css?family=Fjord+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="static/style.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/popup.min.css">
+{% block content %}
+    {{ super() }}
 
+<div class="ui text container">
+  <div class="ui relaxed divided items" id="inner-container">
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-    <script type="text/javascript" src="static/js/index.js"></script>
-  </head>
+    {% for e in entries %}
+    {% for d in e.definitions %}
 
-  <body>
+    <div class="item" id="entry-{{d.get('id')}}">
 
-    <div class="ui inverted menu" id="menu-container">
+      <div class="content">
+        {% if loop.index0 == 0 %}
 
-      <div class="item">
-        <a href="/" class="">
-          <span id="title">Tech Rhetoric</span>
-          <span id="beta">beta</span>
-        </a>
-      </div>
+        <span class="definition-number"> TOP DEFINITION </span>
+        {% else %}
+        <span class="definition-number">{{ loop.index }} </span>
+        {% endif %}
 
-
-      <a class="browse item" >Browse</a>
-      <!-- start browse -->
-      <div class="ui flowing popup">
-        <div class="ui three column divided grid">
-          <div class="column">
-            <h4 class="ui header">Rhetorical Phrases</h4>
-            <div class="ui link list">
-              <a class="item">moderating content would make us too powerful</a>
-              <a class="item">you own your data</a>
-              <a class="item">...but we're connecting people</a>
-              <a class="item">...but it's anonymized</a>
-            </div>
-          </div>
-          <div class="column">
-            <h4 class="ui header">Tech Terms</h4>
-            <div class="ui link list">
-              <a class="item">AI</a>
-              <a class="item">agile</a>
-              <a class="item">API</a>
-              <a class="item">gig economy</a>
-              <a class="item">privacy policy</a>
-              <a class="item">SaaS</a>
-            </div>
-          </div>
-          <div class="column">
-            <h4 class="ui header">Other</h4>
-            <div class="ui link list">
-              <a class="item">unicorn</a>
-              <a class="item">life hack</a>
-              <a class="item">pivot</a>
-            </div>
-          </div>
+        <div>
+          <a href="{{url_for('entry', entry_id=e.get('id'))}}">
+            <h2 class="entry-title"> {{ e.get("title") }} </h2>
+          </a>
         </div>
-      </div>
-      <!-- end browse -->
 
-      <div class="ui right menu inverted">
-        <a class="item" href="{{url_for('about')}}">
-          About
-        </a>
-      </div>
-    </div>
+        <div class="body">{{ d.get("body") | markdown }}</div>
+        <div class="tags">
+          {% for t in d.tags %} <span class="tag"> #{{ t }} </span> {% endfor %}
+        </div>
+        <div>
+          by {{ d.get("author") }} {{ d.publish_date | datetime }}
+        </div>
 
-    <div class="ui text container">
-      <div class="ui relaxed divided items" id="inner-container">
+      </div> <!-- close content -->
+    </div> <!-- close item -->
+    {% endfor %}
+    {% endfor %}
 
-        {% for e in entries %}
-        {% for d in e.definitions %}
-
-        <div class="item" id="entry-{{d.get('id')}}">
-
-          <div class="content">
-          {% if loop.index0 == 0 %}
-
-              <span class="definition-number"> TOP DEFINITION </span>
-              {% else %}
-              <span class="definition-number">{{ loop.index }} </span>
-          {% endif %}
-
-            <div>
-              <a href="{{url_for('entry', entry_id=e.get('id'))}}">
-                <h2 class="entry-title"> {{ e.get("title") }} </h2>
-              </a>
-            </div>
-
-            <div class="body">{{ d.get("body") | markdown }}</div>
-            <div class="tags">
-              {% for t in d.tags %} <span class="tag"> #{{ t }} </span> {% endfor %}
-            </div>
-            <div>
-              by {{ d.get("author") }} {{ d.publish_date | datetime }}
-            </div>
-
-          </div> <!-- close content -->
-        </div> <!-- close item -->
-        {% endfor %}
-        {% endfor %}
-
-      </div> <!-- close ui relaxed items -->
-    </div> <!-- close ui container -->
-
-    <div class="ui inverted vertical footer segment"> </div>
-  </body>
-</html>
+  </div> <!-- close ui relaxed items -->
+</div> <!-- close ui container -->
+{% endblock %}

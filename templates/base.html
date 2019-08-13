@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title>{% block title %}{% endblock %} - Tech Rhetoric</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Fjord+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/popup.min.css">
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script type="text/javascript" src="static/js/index.js"></script>
+  </head>
+  {% endblock %}
+
+  <body>
+
+    <div class="ui inverted menu" id="menu-container">
+      <div class="item">
+        <a href="/" class="">
+          <span id="title">Tech Rhetoric</span>
+          <span id="beta">beta</span>
+        </a>
+      </div>
+
+
+      <a class="browse item" >Browse</a>
+      <!-- start browse -->
+      <div class="ui flowing popup">
+        <div class="ui three column divided grid">
+          <div class="column">
+            <h4 class="ui header">Rhetorical Phrases</h4>
+            <div class="ui link list">
+              <a class="item">moderating content would make us too powerful</a>
+              <a class="item">you own your data</a>
+              <a class="item">...but we're connecting people</a>
+              <a class="item">...but it's anonymized</a>
+            </div>
+          </div>
+          <div class="column">
+            <h4 class="ui header">Tech Terms</h4>
+            <div class="ui link list">
+              <a class="item">AI</a>
+              <a class="item">agile</a>
+              <a class="item">API</a>
+              <a class="item">gig economy</a>
+              <a class="item">privacy policy</a>
+              <a class="item">SaaS</a>
+            </div>
+          </div>
+          <div class="column">
+            <h4 class="ui header">Other</h4>
+            <div class="ui link list">
+              <a class="item">unicorn</a>
+              <a class="item">life hack</a>
+              <a class="item">pivot</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end browse -->
+
+      <div class="ui right menu inverted">
+        <a class="item" href="{{url_for('about')}}">
+          About
+        </a>
+      </div>
+    </div>
+
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div class="ui inverted vertical footer segment"> </div>
+  </body>
+</html>
