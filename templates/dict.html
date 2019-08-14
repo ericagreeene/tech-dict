@@ -13,17 +13,18 @@
     <div class="item" id="entry-{{d.get('id')}}">
 
       <div class="content">
-        {% if loop.index0 == 0 %}
+        <i class="ui icon twitter" entry-id="entry-{{d.get('id')}}"></i>
 
+        {% if loop.index0 == 0 %}
         <span class="definition-number"> TOP DEFINITION </span>
         {% else %}
         <span class="definition-number">{{ loop.index }} </span>
         {% endif %}
 
-        <div>
-          <a href="{{url_for('entry', entry_id=e.get('id'))}}">
-            <h2 class="entry-title"> {{ e.get("title") }} </h2>
-          </a>
+        <div class="entry-title-container">
+        <a href="{{url_for('entry', entry_id=e.get('id'))}}">
+          <h2 class="entry-title"> {{ e.get("title") }} </h2>
+        </a>
         </div>
 
         <div class="body">{{ d.get("body") | markdown }}</div>

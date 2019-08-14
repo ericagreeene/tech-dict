@@ -38,11 +38,14 @@
     padding: 3px;
 }
 
+.entry-title-container {
+    margin-top: 15px;
+}
+
 .entry-title {
     font-size: 35px;
     color: #0F4FE2;
     font-family: serif;
-    margin: 10px 0;
 }
 
 .tag {
@@ -78,4 +81,14 @@ img {
 
 #entries-divider {
     margin-left: 8px;
+}
+
+.twitter {
+    float: right;
+    font-size: 20px !important;
+    color: black;
+}
+
+.twitter:hover {
+    color: greenyellow !important;
 }
