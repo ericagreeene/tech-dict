@@ -1,4 +1,5 @@
 import os
+import json
 import contentful
 from flask import Flask, render_template
 from flaskext.markdown import Markdown
@@ -14,6 +15,8 @@ DELIVERY_ACCESS_TOKEN = os.environ.get('DELIVERY_ACCESS_TOKEN')
 # We set the Contentful client timeout high because we only have to
 # to fetch when we freeze, not per request
 CLIENT_TIMEOUT_SECONDS=60
+
+# To put back --> {{ d.publish_date | datetime }}
 
 app.jinja_env.filters['datetime'] = lambda x: x.strftime('%B %d %Y')
 
@@ -47,7 +50,7 @@ def _entries_to_dict(entries):
                         # the author is a link so we need to make another
                         # api call to resolve it
                         'author': d.author.name,
-                        'publish_date': d.fields().get('publish_date'),
+#                        'publish_date': d.fields().get('publish_date'),
                     } for d in e.fields().get('definition', [])
                 ]
             } for e in entries]
@@ -101,9 +104,11 @@ def _get_contribute():
 
 @app.route("/")
 def home():
-    entries = _get_entries()
 
-    return render_template("dict.html", entries=entries)
+    entries = _get_entries()
+    #entries = json.loads(open('entries.json', 'r').read())
+
+    return render_template("homepage.html", entries=entries)
 
 @app.route("/about.html")
 def about():
@@ -120,8 +125,9 @@ def contribute():
 @app.route("/entry-<entry_id>.html")
 def entry(entry_id):
     entry = _get_entry(entry_id)
+    # entry = [json.loads(open('entries.json', 'r').read())[0]]
 
-    return render_template("dict.html", entries=entry)
+    return render_template("entry.html", entries=entry)
 
 
 if __name__ == "__main__":
