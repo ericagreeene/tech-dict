@@ -9,7 +9,7 @@
     {% block topmodule %}
 
     <div class="ui container" id="trending">
-      <h2>In The News <i class="ui icon newspaper"></i></h2>
+      <h2>In The News <i class="fas fa-newspaper"></i></h2>
 
       <div class="ui container text">
         The FSSP is a high-profile and technically complex project that touches many sources of student data. It’s important for the safety, privacy and civil rights of the students of Florida that it is built in a way that results in reliable, auditable and unbiased data.  The FSSP may also include a predictive threat analysis component, which adds further complexity and opportunities for error, bias and confusion. Like any complex software project, the implementation details of how the FSSP is built, monitored and secured are just as important as the high-level design.
@@ -26,7 +26,7 @@
     <div class="item" id="entry-{{d.get('id')}}">
 
       <div class="content">
-        <i class="ui icon twitter" entry-id="entry-{{d.get('id')}}"></i>
+        <i class="fab fa-twitter" entry-id="entry-{{d.get('id')}}"></i>
 
         {% if loop.index0 == 0 %}
         <span class="definition-number"> TOP DEFINITION </span>

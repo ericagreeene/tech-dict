@@ -14,7 +14,7 @@ function init() {
         return false;
     });
 
-    $('.twitter').click(function() {
+    $('.fa-twitter').click(function() {
         var entryId = $(this).attr('entry-id');
         var href = 'https://twitter.com/intent/tweet';
         var url = href.concat('?text=', window.location.href, entryId);
