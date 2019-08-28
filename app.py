@@ -50,7 +50,7 @@ def _entries_to_dict(entries):
                         # the author is a link so we need to make another
                         # api call to resolve it
                         'author': d.author.name,
-#                        'publish_date': d.fields().get('publish_date'),
+                        'publish_date': d.fields().get('publish_date'),
                     } for d in e.fields().get('definition', [])
                 ]
             } for e in entries]
@@ -126,13 +126,7 @@ def _get_contribute():
 
 @app.route("/")
 def home():
-    #entries = _get_entries()
-    # entries = json.loads(open('entries.json', 'r').read())
-
-    # HACK
-    # hp_modules = _get_homepage()
-
-    hp_modules =  json.load(open('hp_modules.json', 'r'))
+    hp_modules = _get_homepage()
 
     return render_template("homepage.html", hp_modules=hp_modules)
 

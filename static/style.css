@@ -62,6 +62,10 @@ img {
     height: 250px;
 }
 
+.menu {
+    border-radius: 0 !important;
+}
+
 .menu .item {
     font-size: 1em;
 }
@@ -106,4 +110,14 @@ img {
 
 .card {
     overflow: hidden;
+}
+
+.segment {
+    box-shadow: none !important;
+    border: 0px solid !important;
+}
+
+.segments {
+    box-shadow: none !important;
+    border: 0px solid !important;
 }
