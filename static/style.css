@@ -5,7 +5,10 @@
 }
 
 .site-content {
-  flex: 1;
+    flex: 1;
+    background: #E4E9E8;
+    padding: 20px 5px;
+    margin: 0;
 }
 
 .content {
@@ -24,8 +27,9 @@
 }
 
 #beta {
-    font-size: 16px;
-    color: #E6D050;
+    font-size: 20px;
+    color: #2067AB;
+    font-weight: 800;
 }
 
 .definition-number {
@@ -64,6 +68,7 @@ img {
 
 .menu {
     border-radius: 0 !important;
+    margin-bottom: 0px !important;
 }
 
 .menu .item {
@@ -72,7 +77,11 @@ img {
 
 #about-title {
     padding: 5px;
-    background: yellow;
+    background: #E6D050;
+}
+
+#about-page {
+    font-size: 1.2em !important;
 }
 
 #entries-divider {
@@ -86,7 +95,7 @@ img {
 }
 
 .fa-twitter:hover {
-    color: greenyellow !important;
+    color: #65B8D8 !important;
 }
 
 .entry-preview {
@@ -99,10 +108,8 @@ img {
 }
 
 .content.extra {
-    background-color: #E6D050 !important;
-    height: 50px;
+    background-color: #E4E9E8 !important;
 }
-
 
 .hp-cards {
     margin-bottom: 50px;
@@ -120,4 +127,16 @@ img {
 .segments {
     box-shadow: none !important;
     border: 0px solid !important;
+}
+
+.hp-module-body {
+    font-size: 1.2em;
+}
+
+.hp-module-title {
+    background-color: #E6D050;
+}
+
+.in-the-news {
+    margin: 0px;
 }

@@ -1,84 +1,54 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {{ super() }}
+{{ super() }}
 
-    {% block topmodule %}
+{% block topmodule %}
 
-    {% for m in hp_modules%}
+{% for m in hp_modules%}
 
 
-    <div class="ui segments ">
-      <div class="ui segment ">
-        <h2> {{ m.get("title") }} <i class="fas fa-newspaper"></i></h2>
-        <div>{{ m.get("body") }}</div>
-      </div>
+<div class="ui segments">
+  <div class="ui segment">
+    <h3>
+      <span class="hp-module-title">In the News</span>
+    </h3>
+    <h2 class="in-the-news">{{ m.get("title") }}</h2>
 
-      <div class="ui segment">
-        <div class="ui three stackable cards">
-          {% for e in m.get("entries") %}
-          <a class="ui black card" href="{{url_for('entry', entry_id=e.get('id'))}}">
-            <div class="content">
-              <div class="header entry-preview">{{ e.title }}</div>
-              <div class="meta">
-                <p>#no-mercy #too-big</p>
-              </div>
-              <div class="description">
-                {{ e.get('teaser') }}
-              </div>
-            </div>
-          </a>
-          {% endfor %}
-        </div>
-      </div>
+    <div class="body hp-module-body">
+      {{ m.get("body") | markdown }}
     </div>
-
-
-    {% endfor %}
-
   </div>
 
-    {% endblock %}
+  <div class="ui segment">
+    <h3>Relevant Definitions</h3>
 
-    {% block entries %}
-    {% for e in entries %}
-    <div class="entry-block">
-    {% for d in e.definitions %}
-
-    <div class="item" id="entry-{{d.get('id')}}">
-
-      <div class="content">
-        <i class="fab fa-twitter" entry-id="entry-{{d.get('id')}}"></i>
-
-        {% if loop.index0 == 0 %}
-        <span class="definition-number"> TOP DEFINITION </span>
-        {% else %}
-        <span class="definition-number">{{ loop.index }} </span>
-        {% endif %}
-
-        <div class="entry-title-container">
-        <a href="{{url_for('entry', entry_id=e.get('id'))}}">
-          <h2 class="entry-title"> {{ e.get("title") }} </h2>
-        </a>
+    <div class="ui three stackable cards">
+      {% for e in m.get("entries") %}
+      <a class="ui black card" href="{{url_for('entry', entry_id=e.get('id'))}}">
+        <div class="content">
+          <div class="header entry-preview">{{ e.title }}</div>
+          <div class="meta">
+            <p>#hashtag #hashtag</p>
+          </div>
+          <div class="description">
+            {{ e.get('teaser') }}
+          </div>
         </div>
 
-        <div class="body">{{ d.get("body") | markdown }}</div>
-        <div class="tags">
-          {% for t in d.tags %} <span class="tag"> #{{ t }} </span> {% endfor %}
-        </div>
-        <div>
-          by {{ d.get("author") }}
+        <div class="extra content">
+          <i class="fab fa-twitter" entry-id="entry-{{e.get('id')}}"></i>
         </div>
 
-      </div> <!-- close content -->
-    </div> <!-- close item -->
-    {% endfor %}
+      </a>
+      {% endfor %}
     </div>
+  </div>
+</div>
 
-    <div class="ui divider"></div>
+{% endfor %}
 
-    {% endfor %}
-
+</div>
 
 {% endblock %}
 

@@ -1,5 +1,51 @@
 {% extends "homepage.html" %}
 
-<!-- we only include the top module on the homepage -->
 {% block topmodule %}
+{% endblock %}
+
+{% block content %}
+
+{% for e in entries %}
+<div class="ui segment">
+
+  {% for d in e.definitions %}
+
+  <div class="item" id="entry-{{d.get('id')}}">
+
+    <div class="content">
+      <i class="fab fa-twitter" entry-id="entry-{{d.get('id')}}"></i>
+
+      {% if loop.index0 == 0 %}
+      <span class="definition-number"> TOP DEFINITION </span>
+      {% else %}
+      <span class="definition-number">{{ loop.index }} </span>
+      {% endif %}
+
+      <div class="entry-title-container">
+        <a href="{{url_for('entry', entry_id=e.get('id'))}}">
+          <h2 class="entry-title"> {{ e.get("title") }} </h2>
+        </a>
+      </div>
+
+      <div class="body">
+        {{ d.get("body") | markdown }}
+      </div>
+
+    </div>
+
+    <div class="tags">
+      {% for t in d.tags %} <span class="tag"> #{{ t }} </span> {% endfor %}
+    </div>
+    <div>
+      by {{ d.get("author") }}
+    </div>
+
+
+  </div> <!-- close item -->
+  {% endfor %}
+</div>
+
+</div>
+{% endfor %}
+
 {% endblock %}

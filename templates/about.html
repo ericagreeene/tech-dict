@@ -4,8 +4,12 @@
 {{ super() }}
 
 <div class="ui text container">
-<h2><span id="about-title">About</span></h2>
-  {{ text | markdown }}
+  <div class="ui segment">
+    <h2><span id="about-title">About</span></h2>
+    <div id="about-page">
+      {{ text | markdown }}
+      </div>
+  </div>
 </div>
 
 {% endblock %}
