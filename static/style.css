@@ -1,3 +1,7 @@
+:root {
+  -c-highlight: #F060D6;
+}
+
 .content {
     margin: 10px 0;
 }
@@ -7,28 +11,19 @@
     margin: 10px 0;
  }
 
-#content {
-    min-height: 700px;
-    font-size: 16px;
-    margin-top: 20px;
-}
-
 #title {
-    float: left;
-    margin-right: 4px;
-    font-weight: 600;
-    font-family: 'Fjord One', serif;
-    font-size: 2.5em;
+     margin: 0px 5px;
+     font-family: 'Fjord One', serif;
+     color: white;
 }
 
 #beta {
     font-size: 16px;
-    color: grey;
-    vertical-align: super;
+    color: #E6D050;
 }
 
 .definition-number {
-    background: yellow;
+    background: #E6D050;
     font-size: 14px;
     font-weight: 600;
     padding: 3px;
@@ -40,7 +35,7 @@
 
 .entry-title {
     font-size: 35px;
-    color: #0F4FE2;
+    color: black;
     font-family: serif;
 }
 
@@ -70,11 +65,6 @@ img {
     background: yellow;
 }
 
-#footer {
-    height: 50px;
-    margin-top: 20px;
-}
-
 #entries-divider {
     margin-left: 8px;
 }
@@ -87,4 +77,27 @@ img {
 
 .fa-twitter:hover {
     color: greenyellow !important;
+}
+
+.entry-preview {
+    text-decoration: inherit; /* no underline */
+    color: black;
+}
+
+.entry-preview:hover {
+    color: black;
+}
+
+.content.extra {
+    background-color: #E6D050 !important;
+    height: 50px;
+}
+
+
+.hp-cards {
+    margin-bottom: 50px;
+}
+
+.card {
+    overflow: hidden;
 }

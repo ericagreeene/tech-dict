@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-    <title>{% block title %}{% endblock %} - Tech Goggles</title>
+    <title>{% block title %}{% endblock %} - Tech Buzz Dictionary</title>
 
 
     <script src="https://kit.fontawesome.com/847646d9e0.js"></script>
@@ -23,39 +23,23 @@
 
 
   <body>
-    <div class="ui menu fluid borderless">
-      <div class="left menu">
-        <a class="ui dropdown item">
-          <i class="fas fa-bars fa-lg"></i>
-          <div class="ui vertical menu">
-            <div class="item" id="about-menu">About</div>
-            <div class="item" id="contribute-menu">Contribute</div>
-            <div class="divider"></div>
-            <b id="entries-divider">Entries</b>
-            <div class="item">Rhetorical Phrases</div>
-            <div class="item">Technical Glossary</div>
-            <div class="item">Lifestyle Terms</div>
-          </div>
-        </a>
+    <div class="ui top stackable menu inverted borderless">
+      <a href="/" class="item">
+        <h1 class="ui header" id="title">Tech Buzz Dictionary</h1>
+        <div class="sub header" id="beta">beta</div>
+      </a>
+    </div>
 
-        <a href="/" class="item">
-          <span id="title">Tech Goggles</span>
-          <span id="beta">beta</span>
-        </a>
+    <div class="ui main text container">
+      {% block content %}{% endblock %}
+    </div>
 
-      </div>
-
-      <div class="right menu">
-        <div class="item">
-          <div class="ui transparent icon input">
-            <input type="text" placeholder="Search...">
-            <i class="fas fa-search fa-lg"></i>
-          </div>
-        </div>
+    <div class="ui bottom stackable menu inverted large borderless">
+      <div class="ui center aligned container">
+        <div class="right item" id="about-menu">About</div>
+        <div class="left item" id="contribute-menu">Contribute</div>
       </div>
     </div>
 
-    <div id="content">{% block content %}{% endblock %}</div>
-    <div class="ui inverted vertical footer segment" id="footer"> </div>
   </body>
 </html>

@@ -3,18 +3,40 @@
 {% block content %}
     {{ super() }}
 
-<div class="ui text container">
-  <div class="ui relaxed center aligned divided items" id="inner-container">
-
     {% block topmodule %}
 
-    <div class="ui container" id="trending">
-      <h2>In The News <i class="fas fa-newspaper"></i></h2>
+    {% for m in hp_modules%}
 
-      <div class="ui container text">
-        The FSSP is a high-profile and technically complex project that touches many sources of student data. It’s important for the safety, privacy and civil rights of the students of Florida that it is built in a way that results in reliable, auditable and unbiased data.  The FSSP may also include a predictive threat analysis component, which adds further complexity and opportunities for error, bias and confusion. Like any complex software project, the implementation details of how the FSSP is built, monitored and secured are just as important as the high-level design.
+
+    <div class="ui segments">
+      <div class="ui segment">
+        <h2> {{ m.get("title") }} <i class="fas fa-newspaper"></i></h2>
+        <div>{{ m.get("body") }}</div>
+      </div>
+
+      <div class="ui segment">
+        <div class="ui three stackable cards">
+          {% for e in m.get("entries") %}
+          <a class="ui black card" href="{{url_for('entry', entry_id=e.get('id'))}}">
+            <div class="content">
+              <div class="header entry-preview">{{ e.title }}</div>
+              <div class="meta">
+                <p>#no-mercy #too-big</p>
+              </div>
+              <div class="description">
+                {{ e.get('teaser') }}
+              </div>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
       </div>
     </div>
+
+
+    {% endfor %}
+
+  </div>
 
     {% endblock %}
 
@@ -57,8 +79,7 @@
 
     {% endfor %}
 
-  </div> <!-- close ui relaxed items -->
-</div> <!-- close ui container -->
+
 {% endblock %}
 
 {% endblock %}

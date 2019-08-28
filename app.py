@@ -88,6 +88,28 @@ def _get_about():
 
     return abouts[0].text
 
+def _get_homepage():
+    """Fetch homepage content"""
+    client = _get_client()
+    modules =  client.entries({
+        'content_type': 'homepageModule',
+        'include': 2,
+        'limit': 5,
+        })
+
+    return [
+        {
+            'title': m.title,
+            'body': m.body,
+            'entries': [
+                {
+                    'title': e.title.lower(),
+                    'id': e.id,
+                    'teaser': e.fields().get("teaser", ""),
+                } for e in m.entries],
+        } for m in modules
+    ]
+
 def _get_contribute():
     """Fetch Contribute Page"""
     client = _get_client()
@@ -104,11 +126,15 @@ def _get_contribute():
 
 @app.route("/")
 def home():
+    #entries = _get_entries()
+    # entries = json.loads(open('entries.json', 'r').read())
 
-    entries = _get_entries()
-    #entries = json.loads(open('entries.json', 'r').read())
+    # HACK
+    # hp_modules = _get_homepage()
 
-    return render_template("homepage.html", entries=entries)
+    hp_modules =  json.load(open('hp_modules.json', 'r'))
+
+    return render_template("homepage.html", hp_modules=hp_modules)
 
 @app.route("/about.html")
 def about():
@@ -124,8 +150,8 @@ def contribute():
 
 @app.route("/entry-<entry_id>.html")
 def entry(entry_id):
-    entry = _get_entry(entry_id)
-    # entry = [json.loads(open('entries.json', 'r').read())[0]]
+    #entry = _get_entry(entry_id)
+    entry = [json.loads(open('entries.json', 'r').read())[0]]
 
     return render_template("entry.html", entries=entry)
 
