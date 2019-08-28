@@ -150,8 +150,7 @@ def contribute():
 
 @app.route("/entry-<entry_id>.html")
 def entry(entry_id):
-    #entry = _get_entry(entry_id)
-    entry = [json.loads(open('entries.json', 'r').read())[0]]
+    entry = _get_entry(entry_id)
 
     return render_template("entry.html", entries=entry)
 

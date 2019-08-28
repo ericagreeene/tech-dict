@@ -1,5 +1,11 @@
-:root {
-  -c-highlight: #F060D6;
+.site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.site-content {
+  flex: 1;
 }
 
 .content {

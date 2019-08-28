@@ -22,7 +22,7 @@
   {% endblock %}
 
 
-  <body>
+  <body class="site">
     <div class="ui top stackable menu inverted borderless">
       <a href="/" class="item">
         <h1 class="ui header" id="title">Tech Buzz Dictionary</h1>
@@ -30,16 +30,20 @@
       </a>
     </div>
 
+    <main class="site-content">
     <div class="ui main text container">
       {% block content %}{% endblock %}
     </div>
+    </main>
 
+    <footer>
     <div class="ui bottom stackable menu inverted large borderless">
       <div class="ui center aligned container">
         <div class="right item" id="about-menu">About</div>
         <div class="left item" id="contribute-menu">Contribute</div>
       </div>
     </div>
+    </footer>
 
   </body>
 </html>
