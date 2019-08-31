@@ -108,7 +108,7 @@ img {
 }
 
 .content.extra {
-    background-color: #E4E9E8 !important;
+    background-color: #FDEDED !important;
 }
 
 .hp-cards {
@@ -139,4 +139,16 @@ img {
 
 .in-the-news {
     margin: 0px;
+}
+
+.content {
+    padding: 10px !important;
+}
+
+.meta {
+    min-height: 80px;
+}
+
+.card-description {
+    font-size: 14px;
 }

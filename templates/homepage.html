@@ -21,19 +21,26 @@
   </div>
 
   <div class="ui segment">
-    <h3>Relevant Definitions</h3>
+    <h3 class="ui header">Relevant Definitions</h3>
+  </div>
 
-    <div class="ui three stackable cards">
+  <div class="ui segment">
+    <div class="ui three stackable cards compact">
       {% for e in m.get("entries") %}
-      <a class="ui black card" href="{{url_for('entry', entry_id=e.get('id'))}}">
+      <a class="ui card" href="{{url_for('entry', entry_id=e.get('id'))}}">
         <div class="content">
-          <div class="header entry-preview">{{ e.title }}</div>
+          <div class="ui header entry-preview">{{ e.title }}</div>
           <div class="meta">
-            <p>#hashtag #hashtag</p>
+            <div class="card-description">
+              {{ e.get('teaser') }}
+            </div>
           </div>
-          <div class="description">
-            {{ e.get('teaser') }}
-          </div>
+
+          <p class="card-tags">
+            {% for t in e.get("tags") %}
+            #{{ t }}
+            {% endfor %}
+          </p>
         </div>
 
         <div class="extra content">

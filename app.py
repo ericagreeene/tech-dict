@@ -106,6 +106,7 @@ def _get_homepage():
                     'title': e.title.lower(),
                     'id': e.id,
                     'teaser': e.fields().get("teaser", ""),
+                    'tags': e.definition[0].fields().get("tags", []),
                 } for e in m.entries],
         } for m in modules
     ]
