@@ -15,11 +15,9 @@ DELIVERY_ACCESS_TOKEN = os.environ.get('DELIVERY_ACCESS_TOKEN')
 # We set the Contentful client timeout high because we only have to
 # to fetch when we freeze, not per request
 CLIENT_TIMEOUT_SECONDS=60
-
-# To put back --> {{ d.publish_date | datetime }}
+N_RECENT_ENTRIES = 10
 
 app.jinja_env.filters['datetime'] = lambda x: x.strftime('%B %d %Y')
-
 
 def _get_client():
     if DELIVERY_ACCESS_TOKEN is None:
@@ -36,6 +34,8 @@ def _entries_to_dict(entries):
     """
     Takes an array of Contentful entries and returns dict of data required
     to render templates.
+
+
     """
     return [
             {
@@ -55,7 +55,7 @@ def _entries_to_dict(entries):
                 ]
             } for e in entries]
 
-def _get_entries():
+def _get_recent_entries():
     """Fetch all entries"""
     client = _get_client()
 
@@ -63,6 +63,7 @@ def _get_entries():
         'content_type': 'entry',
         'include': 2,
         'order': 'fields.title',
+#        'limit': N_RECENT_ENTRIES,
     })
 
     return _entries_to_dict(entries)
@@ -129,7 +130,17 @@ def _get_contribute():
 def home():
     hp_modules = _get_homepage()
 
-    return render_template("homepage.html", hp_modules=hp_modules)
+    all_entries = _get_recent_entries()
+    entries = {
+        'a_f': [e for e in all_entries if e['title'][0] <= 'f'],
+        'g_z': [e for e in all_entries if e['title'][0] > 'f'],
+    }
+
+    return render_template(
+        "homepage.html",
+        hp_modules=hp_modules,
+        entries=entries,
+    )
 
 @app.route("/about.html")
 def about():

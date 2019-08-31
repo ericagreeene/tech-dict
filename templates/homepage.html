@@ -5,26 +5,27 @@
 
 {% block topmodule %}
 
-{% for m in hp_modules%}
-
-
+{% for m in hp_modules %}
 <div class="ui segments">
+
   <div class="ui segment">
-    <h3>
+
+    <h3 class="ui header">
       <span class="hp-module-title">In the News</span>
+
     </h3>
+
     <h2 class="in-the-news">{{ m.get("title") }}</h2>
 
-    <div class="body hp-module-body">
-      {{ m.get("body") | markdown }}
+    <div class="ui segment">
+      <div class="body hp-module-body">
+        {{ m.get("body") | markdown }}
+      </div>
     </div>
   </div>
 
   <div class="ui segment">
-    <h3 class="ui header">Relevant Definitions</h3>
-  </div>
-
-  <div class="ui segment">
+    <h3>Relevant Definitions</h3>
     <div class="ui three stackable cards compact">
       {% for e in m.get("entries") %}
       <a class="ui card" href="{{url_for('entry', entry_id=e.get('id'))}}">
@@ -53,10 +54,50 @@
   </div>
 </div>
 
+<!-- after first hp module we insert A-F entries -->
+{% if loop.index0 == 0 %}
+
+<!-- A-F -->
+<div class="ui segment">
+  <h3>
+    <span class="hp-module-recent">Entries &nbsp; A - F</span>
+  </h3>
+  <div class="body hp-module-body">
+    <ul class="ui list homepage-list small">
+      {% for e in entries.get('a_f') %}
+      <a href="{{url_for('entry', entry_id=e.get('id'))}}">
+        <li>{{ e.title }}</li>
+      </a>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+
+{% endif %}
+
 {% endfor %}
+
+<!-- HACK, copying code. I don't understand this templating system -->
+
+<!-- F-Z -->
+<div class="ui segment">
+  <h3>
+    <span class="hp-module-recent">Entries &nbsp; G-Z</span>
+  </h3>
+  <div class="body hp-module-body">
+    <ul class="ui list homepage-list small">
+      {% for e in entries.get('g_z') %}
+      <a href="{{url_for('entry', entry_id=e.get('id'))}}">
+        <li>{{ e.title }}</li>
+      </a>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
 
 </div>
 
 {% endblock %}
-
 {% endblock %}

@@ -15,9 +15,10 @@
     margin: 10px 0;
 }
 
-.body {
+.entry-body {
     overflow: hidden;
     margin: 10px 0;
+    font-size: 1.2em;
  }
 
 #title {
@@ -137,6 +138,10 @@ img {
     background-color: #E6D050;
 }
 
+.hp-module-recent {
+    background-color: #D8E8C6;
+}
+
 .in-the-news {
     margin: 0px;
 }
@@ -151,4 +156,12 @@ img {
 
 .card-description {
     font-size: 14px;
+}
+
+.entry-author {
+    font-weight: 600;
+}
+
+.homepage-list {
+    column-count: 2;
 }

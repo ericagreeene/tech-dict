@@ -27,7 +27,7 @@
         </a>
       </div>
 
-      <div class="body">
+      <div class="entry-body">
         {{ d.get("body") | markdown }}
       </div>
 
@@ -36,8 +36,8 @@
     <div class="tags">
       {% for t in d.tags %} <span class="tag"> #{{ t }} </span> {% endfor %}
     </div>
-    <div>
-      by {{ d.get("author") }}
+    <div class="entry-author">
+      by {{ d.get("author") }},  &nbsp; {{ d.publish_date | datetime }}
     </div>
 
 
