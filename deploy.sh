@@ -6,5 +6,5 @@ python freeze.py
 
 echo 'deploying...'
 cd build
-echo https://tech-dict.surge.sh > CNAME
-surge
+echo thetechbuzzwords.com > CNAME
+echo | surge
