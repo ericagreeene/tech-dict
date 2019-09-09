@@ -1,5 +1,19 @@
 {% extends "homepage.html" %}
 
+{% block twitter %}
+<meta name="twitter:card" content="summary_large_image"></meta>
+<meta name="twitter:site" content="@TechBuzzDict"/>
+<meta name="twitter:title" content="Tech Buzzwords Dictionary" />
+
+{% for e in entries %}
+<meta
+  name="twitter:image"
+  content="http://thetechbuzzwords.com/static/twitter/twitter-card-{{ e.get('id') }}.png"
+  />
+{% endfor %}
+
+{% endblock %}
+
 {% block topmodule %}
 {% endblock %}
 

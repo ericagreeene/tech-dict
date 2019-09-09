@@ -4,6 +4,40 @@
 {{ super() }}
 
 {% block topmodule %}
+<div class="ui segment">
+  <h3 class="ui header">
+    <span class="hp-module-about">About this dictionary.</span>
+
+  </h3>
+  <div class="body hp-module-body">
+    <p>
+      Tech Buzzwords is a crowdsourced dictionary containing informational and satirical definitions of technical terms, rhetorical talking points, and technology metaphors. These terms often create narratives in the news, set up policy discussions, and hide the ideological, political, and other implications.
+    </p>
+  <p>
+    Tech rhetoric sets the terms of public debate, so we invite you to help us debunk it.
+  </p>
+  <a href="{{ url_for('about') }}">
+    <p>Learn more.</p>
+  </a>
+  </div>
+</div>
+
+<!-- A-F -->
+<div class="ui segment">
+  <h3>
+    <span class="hp-module-recent">Entries &nbsp; A - F</span>
+  </h3>
+  <div class="body hp-module-body">
+    <ul class="ui list homepage-list">
+      {% for e in entries.get('a_f') %}
+      <a href="{{url_for('entry', entry_id=e.get('id'))}}">
+        <li>{{ e.title }}</li>
+      </a>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
 
 {% for m in hp_modules %}
 <div class="ui segments">
@@ -57,14 +91,16 @@
 <!-- after first hp module we insert A-F entries -->
 {% if loop.index0 == 0 %}
 
-<!-- A-F -->
+<!-- HACK, copying code. I don't understand this templating system -->
+
+<!-- F-Z -->
 <div class="ui segment">
   <h3>
-    <span class="hp-module-recent">Entries &nbsp; A - F</span>
+    <span class="hp-module-recent">Entries &nbsp; G-Z</span>
   </h3>
   <div class="body hp-module-body">
-    <ul class="ui list homepage-list small">
-      {% for e in entries.get('a_f') %}
+    <ul class="ui list homepage-list">
+      {% for e in entries.get('g_z') %}
       <a href="{{url_for('entry', entry_id=e.get('id'))}}">
         <li>{{ e.title }}</li>
       </a>
@@ -78,23 +114,6 @@
 
 {% endfor %}
 
-<!-- HACK, copying code. I don't understand this templating system -->
-
-<!-- F-Z -->
-<div class="ui segment">
-  <h3>
-    <span class="hp-module-recent">Entries &nbsp; G-Z</span>
-  </h3>
-  <div class="body hp-module-body">
-    <ul class="ui list homepage-list small">
-      {% for e in entries.get('g_z') %}
-      <a href="{{url_for('entry', entry_id=e.get('id'))}}">
-        <li>{{ e.title }}</li>
-      </a>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
 
 
 </div>

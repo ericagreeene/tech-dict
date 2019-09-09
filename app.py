@@ -3,6 +3,7 @@ import json
 import contentful
 from flask import Flask, render_template
 from flaskext.markdown import Markdown
+from PIL import Image, ImageDraw, ImageFont
 from jinja2 import Environment
 
 app = Flask(__name__)
@@ -16,6 +17,9 @@ DELIVERY_ACCESS_TOKEN = os.environ.get('DELIVERY_ACCESS_TOKEN')
 # to fetch when we freeze, not per request
 CLIENT_TIMEOUT_SECONDS=60
 N_RECENT_ENTRIES = 10
+
+# HACK -- must run from root directory of repo
+BASEPATH = os.path.dirname(os.path.abspath(__file__))
 
 app.jinja_env.filters['datetime'] = lambda x: x.strftime('%B %d %Y')
 
@@ -63,7 +67,6 @@ def _get_recent_entries():
         'content_type': 'entry',
         'include': 2,
         'order': 'fields.title',
-#        'limit': N_RECENT_ENTRIES,
     })
 
     return _entries_to_dict(entries)
@@ -126,6 +129,109 @@ def _get_contribute():
 
     return pages[0].text
 
+def text_wrap(text, font, max_width):
+    lines = []
+
+    if font.getsize(text)[0] <= max_width:
+        lines.append(text)
+    else:
+        words = text.split(' ')
+        i = 0
+
+        while i < len(words):
+            line = ''
+            while i < len(words) and font.getsize(line + words[i])[0] <= max_width:
+                line = line + words[i] + " "
+                i += 1
+            if not line:
+                line = words[i]
+                i += 1
+
+            lines.append(line)
+    return lines
+
+def _make_twitter_card(entry, font, subtitle_font, top_font,
+                       pos_font):
+    eid = entry.id
+    title = entry.title
+    subtitle = entry.fields().get('teaser', '')
+    pos = entry.fields().get('part_of_speech', '').upper()
+
+    imagepath = os.path.join(BASEPATH, 'static/twitter/twitter-card-blank.png')
+    image = Image.open(imagepath)
+
+    max_width = 4 * (image.size[0] / 5)
+    W, H = image.size
+
+    draw = ImageDraw.Draw(image)
+
+    # Tech Buzzwords Dictionary
+    text = 'TECH BUZZWORDS DICTIONARY'
+    h = 50
+    _draw_centered(h, W, text, top_font, 'black', draw)
+
+    # Title
+    h = H / 4
+    text = title.upper()
+    h = _draw_multiline(h, W, text, font, 'black', draw, max_width)
+
+    # Part of Speech
+    line_height = pos_font.getsize('hg')[1]
+    if pos != '':
+        text = "[{0}]".format(pos)
+        h += line_height
+        _draw_centered(h, W, text, pos_font, 'black', draw)
+
+    # Subtitle
+    h += 2.5 * line_height
+    h = _draw_multiline(h, W, subtitle, subtitle_font, 'black', draw, max_width)
+
+    # write image
+    filepath = os.path.join(BASEPATH, 'static/twitter/twitter-card-{0}.png')
+    # image.show(command='fim')
+
+    image.save(filepath.format(eid))
+
+def _draw_multiline(h, W, text, font, color, draw, max_width):
+    lines = text_wrap(text, font, max_width)
+    line_height = font.getsize('hg')[1]
+
+    for line in lines:
+        _draw_centered(h, W, line, font, 'black', draw)
+        h = h + (.8 * line_height)
+
+    return h
+
+def _draw_centered(h, W, text, font, color, draw):
+    w, line_height = draw.textsize(text, font=font)
+    draw.text(((W-w)/2, h), text, fill='black', font=font)
+
+def _load_font(filename, size):
+    fontpath = os.path.join(BASEPATH, 'static/external/fonts', filename)
+    font = ImageFont.truetype(fontpath, size=size, encoding='unic')
+
+    return font
+
+def make_twitter_cards():
+    client = _get_client()
+    entries =  client.entries({
+        'content_type': 'entry',
+        })
+
+    font = _load_font('Oswald-Bold.ttf', 65)
+    subtitle_font = _load_font('Oswald-Light.ttf', 26)
+    pos_font = _load_font('Oswald-Bold.ttf', 20)
+    top_font = _load_font('Montserrat-SemiBold.ttf', 16)
+
+    for e in entries:
+        _make_twitter_card(
+            e,
+            font=font,
+            subtitle_font=subtitle_font,
+            pos_font=pos_font,
+            top_font=top_font,
+        )
+
 @app.route("/")
 def home():
     hp_modules = _get_homepage()
@@ -161,4 +267,5 @@ def entry(entry_id):
 
 
 if __name__ == "__main__":
+    # make_twitter_cards()
     app.run()

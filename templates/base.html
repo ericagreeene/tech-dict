@@ -19,11 +19,13 @@
     <link rel="stylesheet" type="text/css" href="static/external/css/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="static/external/css/popup.min.css">
 
+    {% block twitter %}
     <meta name="twitter:card" content="summary_large_image"></meta>
     <meta name="twitter:site" content="@TechBuzzDict"/>
-    <meta name="twitter:title" content="Tech Buzz Dictionary" />
-    <meta name="twitter:description" content="Common sense definitions for a digital age." />
-    <meta name="twitter:image" content="http://thetechbuzzwords.com/static/twitter/twitter-card.png" />
+    <meta name="twitter:title" content="Tech Buzzwords Dictionary" />
+    <meta name="twitter:image" content="http://thetechbuzzwords.com/static/twitter/twitter-card-large.png" />
+    {% endblock %}
+
   </head>
   {% endblock %}
 
@@ -31,7 +33,7 @@
     <div class="ui top menu inverted borderless">
       <div class="ui container">
         <a href="/" class="item">
-          <h1 class="ui header" id="title">Tech Buzz Dictionary</h1>
+          <h1 class="ui header" id="title">Tech Buzzwords</h1>
           <div class="sub header" id="beta">beta</div>
         </a>
       </div>
