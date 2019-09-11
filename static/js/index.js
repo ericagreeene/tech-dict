@@ -13,15 +13,9 @@ function init() {
     $('.fa-twitter').click(function() {
         var entryId = $(this).attr('entry-id');
         var href = 'http://twitter.com/intent/tweet';
-        var url = href.concat('?text=', window.location.href, entryId);
-        // var url = href.concat(
-        //     '?image=',
-        //     window.location.href,
-        //     'static/twitter/twitter-card-',
-        //     entryId,
-        //     '.png');
 
-        console.log(url);
+        // SOOOOO HACKY
+        var url = href.concat('?text=', window.location.origin, '/', entryId, '.html');
 
         // open a popup with the link to the post
         !window.open(url, 'Twitter', 'width=500,height=500');
