@@ -1,3 +1,5 @@
+{% import 'cards.html' as cards %}
+
 {% extends "base.html" %}
 
 {% block content %}
@@ -11,14 +13,24 @@
   </h3>
   <div class="body hp-module-body">
     <p>
-      Tech Buzzwords is a crowdsourced dictionary containing informational and satirical definitions of technical terms, rhetorical talking points, and technology metaphors. These terms often create narratives in the news, set up policy discussions, and hide the ideological, political, and other implications.
+      Tech Buzzwords is a crowdsourced dictionary containing informational and satirical definitions of technical terms, rhetorical talking points, and technology metaphors.
     </p>
-  <p>
-    Tech rhetoric sets the terms of public debate, so we invite you to help us debunk it.
-  </p>
-  <a href="{{ url_for('about') }}">
-    <p>Learn more.</p>
-  </a>
+
+    <p>
+      These terms often create narratives in the news, set up policy discussions, and hide ideological and political implications.
+    </p>
+    <p>
+      So we invite you to help us debunk them.
+    </p>
+    <p>
+    <a href="{{ url_for('about') }}">
+      Learn more
+    </a>
+    and
+    <a href="{{ url_for('contribute') }}">
+      contribute.
+    </a>
+    </p>
   </div>
 </div>
 
@@ -60,32 +72,10 @@
 
   <div class="ui segment">
     <h3>Relevant Definitions</h3>
-    <div class="ui three stackable cards compact">
-      {% for e in m.get("entries") %}
-      <a class="ui card" href="{{url_for('entry', entry_id=e.get('id'))}}">
-        <div class="content">
-          <div class="ui header entry-preview">{{ e.title }}</div>
-          <div class="meta">
-            <div class="card-description">
-              {{ e.get('teaser') }}
-            </div>
-          </div>
-
-          <p class="card-tags">
-            {% for t in e.get("tags") %}
-            #{{ t }}
-            {% endfor %}
-          </p>
-        </div>
-
-        <div class="extra content">
-          <i class="fab fa-twitter" entry-id="entry-{{e.get('id')}}"></i>
-        </div>
-
-      </a>
-      {% endfor %}
-    </div>
+    {{ cards.list(entries=m.get("entries")) }}
   </div>
+
+
 </div>
 
 <!-- after first hp module we insert A-F entries -->

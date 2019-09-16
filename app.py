@@ -1,5 +1,6 @@
 import os
 import json
+import random
 import contentful
 from flask import Flask, render_template
 from flaskext.markdown import Markdown
@@ -37,14 +38,16 @@ def _entries_to_dict(entries):
     """
     Takes an array of Contentful entries and returns dict of data required
     to render templates.
-
-
     """
 
     return [
             {
                 'title': e.fields().get('title').lower(),
                 'id': e.id,
+
+                # HACK, take the tags from the first definition
+                'tags': e.definition[0].fields().get("tags", []),
+                'teaser': e.fields().get("teaser", ""),
                 'definitions': [
                     {
                         'body': d.fields().get('body'),
@@ -54,7 +57,7 @@ def _entries_to_dict(entries):
                         'publish_date': d.fields().get('publish_date'),
                     } for d in e.fields().get('definition', [])
                 ]
-            } for e in entries]
+            } for e in entries if len(e.definition) > 0]
 
 def _get_recent_entries():
     """Fetch all entries"""
@@ -66,24 +69,35 @@ def _get_recent_entries():
         'order': 'fields.title',
     })
 
-
     return _entries_to_dict(entries)
 
 def _get_random_entries(client, n=3):
-    # Find the total number of entries
+    """Returns n random entries"""
+
+    # Find the total number of available entries
     entries = client.entries({
         'content_type': 'entry',
         'include': 0,
     })
     n_entries = len(entries)
 
-    client.search
+    entries = []
+    for i in range(n):
+        entry = client.entries(
+            {
+                'content_type': 'entry',
+                'skip': random.randint(0, n_entries-1),
+                'limit': 1,
+                'include': 2
+            })
+
+        entries.append(entry[0])
+
+    return _entries_to_dict(entries)
 
 def _get_entry(client, entry_id):
     """Fetch single entry by ID"""
     entry = client.entry(entry_id, query={'include': 2})
-
-    random_entries = _get_random_entries(client, N_RECIRC)
 
     return _entries_to_dict([entry])
 
@@ -171,7 +185,16 @@ def contribute():
 def entry(entry_id):
     client = _get_client()
     entry = _get_entry(client, entry_id)
-    return render_template("entry.html", entries=entry)
+    random_entries = _get_random_entries(client, N_RECIRC + 1)
+
+    # Filter out current entry from recirc
+    random_entries = [e for e in random_entries if e["id"] != entry_id]
+
+    return render_template(
+        "entry.html",
+        entries=entry,
+        random_entries=random_entries[0:N_RECIRC],
+    )
 
 
 if __name__ == "__main__":

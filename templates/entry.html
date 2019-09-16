@@ -1,3 +1,4 @@
+{% import 'cards.html' as cards %}
 {% extends "homepage.html" %}
 
 {% block twitter %}
@@ -11,11 +12,11 @@
   content="http://thetechbuzzwords.com/static/twitter/twitter-card-{{ e.get('id') }}.png"
   />
 {% endfor %}
+{% endblock twitter %}
 
-{% endblock %}
 
 {% block topmodule %}
-{% endblock %}
+{% endblock topmodule %}
 
 {% block content %}
 
@@ -24,10 +25,10 @@
 
   {% for d in e.definitions %}
 
-  <div class="item" id="entry-{{d.get('id')}}">
+  <div class="item" id="entry-{{e.get('id')}}">
 
     <div class="content">
-      <i class="fab fa-twitter" entry-id="entry-{{d.get('id')}}"></i>
+      <i class="fab fa-twitter" entry-id="entry-{{e.get('id')}}"></i>
 
       {% if loop.index0 == 0 %}
       <span class="definition-number"> TOP DEFINITION </span>
@@ -40,13 +41,10 @@
           <h2 class="entry-title"> {{ e.get("title") }} </h2>
         </a>
       </div>
-
       <div class="entry-body">
         {{ d.get("body") | markdown }}
       </div>
-
-    </div>
-
+    </div> <!-- close entry-title-container -->
     <div class="tags">
       {% for t in d.tags %} <span class="tag"> #{{ t }} </span> {% endfor %}
     </div>
@@ -54,12 +52,18 @@
       by {{ d.get("author") }},  &nbsp; {{ d.publish_date | datetime }}
     </div>
 
-
   </div> <!-- close item -->
   {% endfor %}
 </div>
 
-</div>
 {% endfor %}
 
-{% endblock %}
+<!-- recirculation -->
+<div class="ui segment">
+    <h3>More Definitions</h3>
+  {{ cards.list(entries=random_entries) }}
+</div>
+
+</div>
+
+{% endblock content %}

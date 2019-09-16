@@ -4,7 +4,12 @@ set -e
 echo 'freezing...'
 python freeze.py
 
+echo 'generating twitter cards'
+python cards.py
+
 echo 'deploying...'
-cd build
-echo thetechbuzzwords.com > CNAME
-echo | surge
+firebase deploy
+
+# cd build
+# echo thetechbuzzwords.com > CNAME
+# echo | surge

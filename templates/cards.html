@@ -1,0 +1,29 @@
+
+{% macro list(entries) -%}
+<div class="ui three stackable cards compact">
+  {% for e in entries %}
+
+  <a class="ui card" href="{{url_for('entry', entry_id=e['id'])}}">
+    <div class="content">
+      <div class="ui header entry-preview">{{ e["title"] }}</div>
+      <div class="meta">
+        <div class="card-description">
+          {{ e["teaser"] }}
+        </div>
+      </div>
+
+      <p class="card-tags">
+        {% for t in e["tags"] %}
+        #{{ t }}
+        {% endfor %}
+      </p>
+    </div>
+
+    <div class="extra content">
+      <i class="fab fa-twitter" entry-id="entry-{{e['id']}}"></i>
+    </div>
+  </a>
+  {% endfor %}
+
+</div>
+{%- endmacro %}
