@@ -25,7 +25,7 @@
      margin: 0px 5px;
      font-family: 'Fjord One', serif;
      color: white;
-     font-size: 1.5em;
+     font-size: 2em;
 }
 
 #beta {
@@ -160,7 +160,7 @@ img {
 }
 
 .card-description {
-    font-size: 14px;
+    font-size: 1.1em;
 }
 
 .entry-author {
