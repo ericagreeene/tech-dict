@@ -39,7 +39,7 @@ def make_twitter_card(entry, font, subtitle_font, top_font,
     imagepath = os.path.join(BASEPATH, 'static/twitter/twitter-card-blank.png')
     image = Image.open(imagepath)
 
-    max_width = 4 * (image.size[0] / 5)
+    max_width = 4.5 * (image.size[0] / 5)
     W, H = image.size
 
     draw = ImageDraw.Draw(image)
@@ -98,8 +98,8 @@ def make_twitter_cards():
         'content_type': 'entry',
         })
 
-    font = load_font('Oswald-Bold.ttf', 60)
-    subtitle_font = load_font('Oswald-Light.ttf', 36)
+    font = load_font('Oswald-Bold.ttf', 68)
+    subtitle_font = load_font('Oswald-Light.ttf', 38)
     pos_font = load_font('Oswald-Bold.ttf', 28)
     top_font = load_font('Montserrat-SemiBold.ttf', 16)
 

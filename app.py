@@ -101,20 +101,20 @@ def _get_entry(client, entry_id):
 
     return _entries_to_dict([entry])
 
-def _get_about():
-    """Fetch About Page"""
-    client = _get_client()
-    abouts =  client.entries({
-        'content_type': 'aboutPage',
-        'limit': 1,
-        })
+# def _get_about():
+#     """Fetch About Page"""
+#     client = _get_client()
+#     abouts =  client.entries({
+#         'content_type': 'aboutPage',
+#         'limit': 1,
+#         })
 
-    # HACK -- we assume there is only one About Page. We blindly take
-    # the first one in the list.
-    if len(abouts) == 0:
-        return ""
+#     # HACK -- we assume there is only one About Page. We blindly take
+#     # the first one in the list.
+#     if len(abouts) == 0:
+#         return ""
 
-    return abouts[0].text
+#     return abouts[0].text
 
 def _get_homepage():
     """Fetch homepage content"""
@@ -155,25 +155,38 @@ def _get_contribute():
 
 @app.route("/")
 def home():
-    hp_modules = _get_homepage()
+    # hp_modules = _get_homepage()
+    hp_modules = []
 
     all_entries = _get_recent_entries()
-    entries = {
-        'a_f': [e for e in all_entries if e['title'][0] <= 'f'],
-        'g_z': [e for e in all_entries if e['title'][0] > 'f'],
-    }
+    contribute_text = _get_contribute()
+    entry_groups = [
+        {
+            'title': 'A - E',
+            'entries': [e for e in all_entries if e['title'][0] <= 'e'],
+        },
+        {
+            'title': 'F - S':
+            'entries': [e for e in all_entries if e['title'][0] > 'e' and e['title'][0] =< 's'],
+        },
+        {
+            'title': 'T - Z':
+            'entries': [e for e in all_entries if e['title'][0] > 's'],
+        },
+    ]
 
     return render_template(
         "homepage.html",
         hp_modules=hp_modules,
-        entries=entries,
+        entry_groups=entry_groups,
+        contribute_text=contribute_text,
     )
 
-@app.route("/about.html")
-def about():
-    text = _get_about()
+# @app.route("/about.html")
+# def about():
+#     text = _get_about()
 
-    return render_template("about.html", text=text)
+#     return render_template("about.html", text=text)
 
 @app.route("/contribute.html")
 def contribute():

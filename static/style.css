@@ -65,7 +65,10 @@
 }
 
 img {
-    height: 250px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 200px;
 }
 
 .menu {
@@ -169,4 +172,9 @@ img {
 
 .homepage-list {
     column-count: 2;
+}
+
+.hp-title {
+    font-size: 1.1em;
+    padding: 0 5px;
 }

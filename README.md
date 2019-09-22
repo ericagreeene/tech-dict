@@ -29,3 +29,8 @@ make run
 ```
 
 You can see the site at http://127.0.0.1:5000
+
+```
+# Install firebase cli
+https://firebase.google.com/docs/cli#install_the_firebase_cli
+```
