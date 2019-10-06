@@ -48,6 +48,7 @@ def _entries_to_dict(entries):
                 # HACK, take the tags from the first definition
                 'tags': e.definition[0].fields().get("tags", []),
                 'teaser': e.fields().get("teaser", ""),
+                'pos': e.fields().get("part_of_speech", "").lower(),
                 'definitions': [
                     {
                         'body': d.fields().get('body'),
@@ -101,43 +102,20 @@ def _get_entry(client, entry_id):
 
     return _entries_to_dict([entry])
 
-# def _get_about():
-#     """Fetch About Page"""
-#     client = _get_client()
-#     abouts =  client.entries({
-#         'content_type': 'aboutPage',
-#         'limit': 1,
-#         })
-
-#     # HACK -- we assume there is only one About Page. We blindly take
-#     # the first one in the list.
-#     if len(abouts) == 0:
-#         return ""
-
-#     return abouts[0].text
-
-def _get_homepage():
-    """Fetch homepage content"""
+def _get_about():
+    """Fetch About Page"""
     client = _get_client()
-    modules =  client.entries({
-        'content_type': 'homepageModule',
-        'include': 2,
-        'limit': 5,
+    abouts =  client.entries({
+        'content_type': 'aboutPage',
+        'limit': 1,
         })
 
-    return [
-        {
-            'title': m.title,
-            'body': m.body,
-            'entries': [
-                {
-                    'title': e.title.lower(),
-                    'id': e.id,
-                    'teaser': e.fields().get("teaser", ""),
-                    'tags': e.definition[0].fields().get("tags", []),
-                } for e in m.entries],
-        } for m in modules
-    ]
+    # HACK -- we assume there is only one About Page. We blindly take
+    # the first one in the list.
+    if len(abouts) == 0:
+        return ""
+
+    return abouts[0].text
 
 def _get_contribute():
     """Fetch Contribute Page"""
@@ -155,10 +133,8 @@ def _get_contribute():
 
 @app.route("/")
 def home():
-    # hp_modules = _get_homepage()
-    hp_modules = []
-
     all_entries = _get_recent_entries()
+    about_text = _get_about()
     contribute_text = _get_contribute()
     entry_groups = [
         {
@@ -166,27 +142,21 @@ def home():
             'entries': [e for e in all_entries if e['title'][0] <= 'e'],
         },
         {
-            'title': 'F - S':
-            'entries': [e for e in all_entries if e['title'][0] > 'e' and e['title'][0] =< 's'],
+            'title': 'F - S',
+            'entries': [e for e in all_entries if e['title'][0] > 'e' and e['title'][0] <= 's'],
         },
         {
-            'title': 'T - Z':
+            'title': 'T - Z',
             'entries': [e for e in all_entries if e['title'][0] > 's'],
         },
     ]
 
     return render_template(
         "homepage.html",
-        hp_modules=hp_modules,
+        about_text=about_text,
         entry_groups=entry_groups,
         contribute_text=contribute_text,
     )
-
-# @app.route("/about.html")
-# def about():
-#     text = _get_about()
-
-#     return render_template("about.html", text=text)
 
 @app.route("/contribute.html")
 def contribute():

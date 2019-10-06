@@ -46,9 +46,17 @@
 }
 
 .entry-title {
-    font-size: 35px;
+    font-size: 3.2em;
     color: black;
     font-family: serif;
+}
+
+.entry-pos {
+    font-size: 1.2em;
+    color: black;
+    font-weight: 100;
+    margin: 10px 0;
+
 }
 
 .tag {

@@ -11,31 +11,28 @@
     <span class="hp-module-about hp-title">About this dictionary</span>
   </h3>
   <div class="body hp-module-body">
-    <p>
-      Tech Buzzwords is a crowdsourced dictionary containing informational and satirical definitions of technical terms, rhetorical talking points, and technology metaphors.
-    </p>
-
-    <p>
-      These terms often create narratives in the news, set up policy discussions, and hide ideological and political implications.
-      </p>
-      <p>
-      They are important so we invite you to help us define them.
-    </p>
-    <a href="{{ url_for('contribute') }}"></a>
-    </p>
+    {{ about_text | markdown }}
   </div>
 </div>
 
+<div class="ui segment">
+  <h3 class="ui header">
+    <span class="hp-module-title hp-title">How to Contribute</span>
+  </h3>
+  <div class="body hp-module-body">
+    {{ contribute_text | markdown }}
+  </div>
+</div>
 
 <!--Entry Names -->
-{% for e in entry_names %}
+  {% for g in entry_groups %}
 <div class="ui segment">
   <h3>
-    <span class="hp-module-recent hp-title">Entries &nbsp; {{ e["title"] }}</span>
+    <span class="hp-module-recent hp-title">Entries &nbsp; {{ g["title"] }}</span>
   </h3>
   <div class="body hp-module-body">
     <ul class="ui list homepage-list">
-      {% for name in e["entries"] %}
+      {% for e in g.get("entries") %}
       <a href="{{url_for('entry', entry_id=e['id']) }}">
         <li>{{ e["title"] }}</li>
       </a>
@@ -45,37 +42,6 @@
 </div>
 {% endfor %}
 
-<!-- How to Contribute -->
-<div class="ui segment">
-  <h3 class="ui header">
-    <span class="hp-module-title hp-title">How to Contribute</span>
-  </h3>
-  <div class="body hp-module-body">
-    <p>
-      {{ contribute_text }}
-    </p>
-
-    <a href="{{ url_for('contribute') }}"></a>
-    </p>
-  </div>
-</div>
-
-
-<!-- F-Z -->
-<div class="ui segment">
-  <h3>
-    <span class="hp-module-recent hp-title">Entries &nbsp; G-Z</span>
-  </h3>
-  <div class="body hp-module-body">
-    <ul class="ui list homepage-list">
-      {% for e in entries.get('g_z') %}
-      <a href="{{url_for('entry', entry_id=e.get('id'))}}">
-        <li>{{ e.title }}</li>
-      </a>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
 
 </div>
 

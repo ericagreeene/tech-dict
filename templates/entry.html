@@ -14,7 +14,6 @@
 {% endfor %}
 {% endblock twitter %}
 
-
 {% block topmodule %}
 {% endblock topmodule %}
 
@@ -38,8 +37,14 @@
 
       <div class="entry-title-container">
         <a href="{{url_for('entry', entry_id=e.get('id'))}}">
-          <h2 class="entry-title"> {{ e.get("title") }} </h2>
+          <h2 class="entry-title">
+            {{ e["title"] }}
+          </h2>
         </a>
+        <hr>
+          <h4 class="entry-pos">
+            {{ e["pos"] }}
+          </h4>
       </div>
       <div class="entry-body">
         {{ d.get("body") | markdown }}
@@ -60,7 +65,7 @@
 
 <!-- recirculation -->
 <div class="ui segment">
-    <h3>Read More Definitions</h3>
+    <h2>More Definitions</h2>
   {{ cards.list(entries=random_entries) }}
 </div>
 
