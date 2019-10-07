@@ -128,6 +128,23 @@ def _get_about():
 
     return abouts[0].text
 
+def _get_wishlist():
+    """Fetch wishlist of terms and phrases"""
+    client = _get_client()
+    wishlist =  client.entries({
+        'content_type': 'wishList',
+        'limit': 1,
+        })
+
+    # HACK -- we assume there is only one
+    if len(wishlist) == 0:
+        return ""
+
+    # List of newline separated terms
+    terms = [w.strip() for w in wishlist[0].terms.split('\n')]
+
+    return terms
+
 def _get_contribute():
     """Fetch Contribute Page"""
     client = _get_client()
@@ -168,11 +185,10 @@ def home():
         contribute_text=contribute_text,
     )
 
-@app.route("/contribute.html")
-def contribute():
-    text = _get_contribute()
-
-    return render_template("contribute.html", text=text)
+@app.route("/wishlist.html")
+def wishlist():
+    terms = _get_wishlist()
+    return render_template("wishlist.html", terms=terms)
 
 @app.route("/<entry_id>.html")
 def entry(entry_id):

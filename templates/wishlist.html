@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+{{ super() }}
+
+<div class="ui text container">
+  <div class="ui segment">
+    <h2><span id="about-title">Wish List</span></h2>
+
+    <ul class="ui list large wishlist">
+      {% for t in terms %}
+      <li>{{ t }}</li>
+      {% endfor %}
+      </ul>
+  </div>
+</div>
+
+{% endblock %}

@@ -196,6 +196,10 @@ img {
     column-count: 2;
 }
 
+.wishlist {
+    column-count: 2;
+}
+
 .homepage-list li {
     margin: 4px 0;
 }
