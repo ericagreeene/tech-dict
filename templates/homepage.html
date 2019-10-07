@@ -15,6 +15,7 @@
   </div>
 </div>
 
+
 <div class="ui segment">
   <h3 class="ui header">
     <span class="hp-module-title hp-title">How to Contribute</span>
@@ -25,10 +26,10 @@
 </div>
 
 <!--Entry Names -->
-  {% for g in entry_groups %}
+{% for g in entry_groups %}
 <div class="ui segment">
   <h3>
-    <span class="hp-module-recent hp-title">Entries &nbsp; {{ g["title"] }}</span>
+    <span class="hp-module-recent hp-title">{{ g["title"] }}</span>
   </h3>
   <div class="body hp-module-body">
     <ul class="ui list homepage-list">
@@ -41,6 +42,7 @@
   </div>
 </div>
 {% endfor %}
+
 
 
 </div>

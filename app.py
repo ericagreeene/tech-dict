@@ -2,6 +2,7 @@ import os
 import json
 import random
 import contentful
+from collections import defaultdict
 from flask import Flask, render_template
 from flaskext.markdown import Markdown
 from jinja2 import Environment
@@ -43,7 +44,9 @@ def _entries_to_dict(entries):
     return [
             {
                 'title': e.fields().get('title').lower(),
-                'id': e.id,
+                # 'id': e.id,
+                'id': e.fields().get('slug', '').lower(),
+                'slug': e.definition[0].slug,
 
                 # HACK, take the tags from the first definition
                 'tags': e.definition[0].fields().get("tags", []),
@@ -98,9 +101,17 @@ def _get_random_entries(client, n=3):
 
 def _get_entry(client, entry_id):
     """Fetch single entry by ID"""
-    entry = client.entry(entry_id, query={'include': 2})
 
-    return _entries_to_dict([entry])
+    # entry = client.entry(entry_id, query={'include': 2})
+    entries = client.entries({
+        'fields.slug': entry_id,
+        'content_type': 'entry',
+        'include': 2,
+    })
+
+    # TODO: error checking if entry doesn't exist
+
+    return _entries_to_dict([entries[0]])
 
 def _get_about():
     """Fetch About Page"""
@@ -136,20 +147,19 @@ def home():
     all_entries = _get_recent_entries()
     about_text = _get_about()
     contribute_text = _get_contribute()
-    entry_groups = [
-        {
-            'title': 'A - E',
-            'entries': [e for e in all_entries if e['title'][0] <= 'e'],
-        },
-        {
-            'title': 'F - S',
-            'entries': [e for e in all_entries if e['title'][0] > 'e' and e['title'][0] <= 's'],
-        },
-        {
-            'title': 'T - Z',
-            'entries': [e for e in all_entries if e['title'][0] > 's'],
-        },
-    ]
+
+    entries_by_pos = defaultdict(list)
+    for e in all_entries:
+        entries_by_pos[e['pos']] += [e]
+
+    entry_groups = []
+    for pos, entries in entries_by_pos.items():
+        entry_groups.append(
+            {
+                'title': (pos + 's').title(),
+                'entries': entries,
+            }
+        )
 
     return render_template(
         "homepage.html",
@@ -164,7 +174,7 @@ def contribute():
 
     return render_template("contribute.html", text=text)
 
-@app.route("/entry-<entry_id>.html")
+@app.route("/<entry_id>.html")
 def entry(entry_id):
     client = _get_client()
     entry = _get_entry(client, entry_id)

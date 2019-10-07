@@ -98,9 +98,9 @@ def make_twitter_cards():
         'content_type': 'entry',
         })
 
-    font = load_font('Oswald-Bold.ttf', 68)
-    subtitle_font = load_font('Oswald-Light.ttf', 38)
-    pos_font = load_font('Oswald-Bold.ttf', 28)
+    font = load_font('Oswald-Bold.ttf', 70)
+    subtitle_font = load_font('Oswald-Light.ttf', 40)
+    pos_font = load_font('Oswald-Bold.ttf', 30)
     top_font = load_font('Montserrat-SemiBold.ttf', 16)
 
     for e in entries:

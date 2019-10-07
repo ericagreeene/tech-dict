@@ -16,6 +16,7 @@ function init() {
 
         // SOOOOO HACKY
         var url = href.concat('?text=', window.location.origin, '/', entryId, '.html');
+        console.log(url);
 
         // open a popup with the link to the post
         !window.open(url, 'Twitter', 'width=500,height=500');
