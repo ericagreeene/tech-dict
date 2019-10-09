@@ -30,7 +30,7 @@
       <i class="fab fa-twitter" entry-id="{{e.get('id')}}"></i>
 
       {% if loop.index0 == 0 %}
-      <span class="definition-number"> TOP DEFINITION </span>
+      <span class="definition-number"> {{ e["pos"] }} </span>
       {% else %}
       <span class="definition-number">{{ loop.index }} </span>
       {% endif %}
@@ -41,8 +41,8 @@
             {{ e["title"] }}
           </h2>
         </a>
-          <h4 class="entry-pos">
-            {{ e["pos"] }}
+          <h4 class="entry-subhead">
+            {{ e["teaser"] }}
           </h4>
       </div>
       <div class="entry-body">

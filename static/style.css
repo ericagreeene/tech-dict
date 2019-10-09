@@ -36,9 +36,10 @@
 
 .definition-number {
     background: #E6D050;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 600;
     padding: 3px;
+    font-variant: all-small-caps;
 }
 
 .entry-title-container {
@@ -51,7 +52,7 @@
     font-family: serif;
 }
 
-.entry-pos {
+.entry-subhead {
     font-size: 1.2em;
     color: grey;
     margin: 0;

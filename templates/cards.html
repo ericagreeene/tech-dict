@@ -3,7 +3,7 @@
 <div class="ui three stackable cards compact">
   {% for e in entries %}
 
-  <a class="ui card raised" href="{{url_for('entry', entry_id=e['id'])}}">
+  <a class="ui card" href="{{url_for('entry', entry_id=e['id'])}}">
     <div class="content">
       <div class="ui header entry-preview">
         {{ e["title"] }}
