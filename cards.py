@@ -31,7 +31,7 @@ def text_wrap(text, font, max_width):
 
 def make_twitter_card(entry, font, subtitle_font, top_font,
                        pos_font):
-    eid = entry.id
+    eid = entry.slug
     title = entry.title
     subtitle = entry.fields().get('teaser', '')
     pos = entry.fields().get('part_of_speech', '').upper()
